@@ -13,16 +13,16 @@ namespace OpenXml_SpreadSheet
     internal class DataExtraction
     {
 
-        public static async Task GetDataTable()
+        public static async Task<DataTable> GetDataTable()
         {
             var regions = new List<string>();
             using var wb =
                 new XLWorkbook($"C:\\Users\\karim\\source\\repos\\Alireza1354\\OpenXml-SpreadSheet\\OpenXml-SpreadSheet\\Rgions.xlsx");
+
             var ws = wb.Worksheet("sheet1");
+
             var firstRowUsed = ws.FirstRowUsed();
             var regionRow = firstRowUsed.RowUsed();
-            // Move to the next row (it now has the titles)
-            // regionRow = regionRow.RowBelow();
 
             // First possible address of the Region table
             var firstPossibleAddress =
@@ -39,16 +39,8 @@ namespace OpenXml_SpreadSheet
             // Treat the range as a table (to be able to use the column names)
             IXLTable regionTable = regionRange.AsTable();
 
-            //foreach ( var field in fields )
-            //{
-            //    field.Column
-            //}
-            // Get the list of company names
-            //regions = regionTable.DataRange.Rows()
-            //    .Select(r => r.Field("RegionName").GetString()).Where(x => x != null)
-            //    .ToList();
-
             DataTable dt = new DataTable();
+
             DataColumn dataColumn = new DataColumn()
             {
                 ColumnName = "Regionid",
@@ -95,6 +87,8 @@ namespace OpenXml_SpreadSheet
             foundRows = dt.Select(expression);
             var reg = foundRows[0]["RegionName"].ToString();
             var cap = regions.Capacity;
+
+            return dt;
         }
     }
 }
