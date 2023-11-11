@@ -24,6 +24,7 @@ using (XLWorkbook workbook = new XLWorkbook(filePath))
 
         Dictionary<string, string> apiResult = await Api.GetData(firstCellUsedValue.ToString());
 
+
         var i = firstRowNumber - 1;
         var j = firstColumNumber;
         foreach (KeyValuePair<string, string> keyValuePair in apiResult)
@@ -35,6 +36,7 @@ using (XLWorkbook workbook = new XLWorkbook(filePath))
             workbook.Worksheet(sheetName).Cell(row: i + 1, column: j).Value = value;
 
         }
+
         IXLColumns colUsed = xLWorksheet.ColumnsUsed();
         var countColumnUsed = xLWorksheet.ColumnsUsed().Count();
 
@@ -52,11 +54,12 @@ using (XLWorkbook workbook = new XLWorkbook(filePath))
 
                 workbook.Worksheet(sheetName).Cell(row: firstRowNumber + r, column: firstColumNumber + 1).Value = value;
                 firstColumNumber += 1;
-                Console.WriteLine($"i: {firstRowNumber + r} -- j: {firstColumNumber}");
+
             }
 
             firstColumNumber -= countColumnUsed - 1;
-
+            Console.WriteLine($"Row: {r} -- OK");
+            workbook.Save();
         }
 
         workbook.Save();
