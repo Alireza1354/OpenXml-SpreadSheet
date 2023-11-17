@@ -2,10 +2,17 @@
 using OpenXml_SpreadSheet;
 
 
-string filePath = @"C:\Users\karim\Documents\SampleData.xlsx";
-string sheetName = "sheet2";
+int counter = 0;
 
-await DataExtraction.GetDataTable();
+while (counter > 0)
+{
+    Console.WriteLine("Execute code");
+    counter++;
+}
+//string filePath = @"C:\Users\karim\Documents\SampleData.xlsx";
+//string sheetName = "sheet2";
+
+//await DataExtraction.GetDataTable();
 
 //using (XLWorkbook workbook = new XLWorkbook(filePath))
 //{
